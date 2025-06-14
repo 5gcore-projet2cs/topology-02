@@ -1,0 +1,77 @@
+info:
+  version: 1.0.7
+  description: Routing information for UE
+
+ueRoutingInfo: # the list of UE routing information
+  UE1: # Group Name
+    members:
+      - imsi-208930000000001 # Subscription Permanent Identifier of the UE
+      - imsi-208930000000002
+    topology: # Network topology for this group (Uplink: A->B, Downlink: B->A)
+      # default path derived from this topology
+      # node name should be consistent with smfcfg.yaml
+      - A: gNB1
+        B: I-UPF-1
+      - A: I-UPF-1
+        B: I-UPF-2
+      - A: I-UPF-2
+        B: I-UPF-3
+      - A: I-UPF-3
+        B: PSA-UPF-1
+
+    specificPath:
+      - dest: 10.10.0.1/32
+        path: [I-UPF-1, I-UPF-2, I-UPF-4, PSA-UPF-2]
+      - dest: 172.17.0.0/16
+        path: [I-UPF-1, I-UPF-2, I-UPF-3 PSA-UPF-1]
+  UE2: # Group Name
+    members:
+      - imsi-208930000000003
+      - imsi-208930000000004 # Subscription Permanent Identifier of the UE
+    topology: # Network topology for this group (Uplink: A->B, Downlink: B->A)
+      # default path derived from this topology
+      # node name should be consistent with smfcfg.yaml
+      # - A: gNB2
+      #   B: I-UPF-2
+      # - A: I-UPF-2
+      #   B: PSA-UPF
+      - A: gNB2
+        B: I-UPF-1
+      - A: I-UPF-1
+        B: I-UPF-4
+      - A: I-UPF-4
+        B: PSA-UPF-2 
+
+    specificPath:
+      - dest: 172.17.0.0/16
+        path: [I-UPF-1, I-UPF-4,I-UPF-3, PSA-UPF-1]
+      - dest: 10.10.0.1/32
+        path: [I-UPF-1, I-UPF-4, PSA-UPF-2]
+
+  UE3: # Group Name
+    members:
+      - imsi-208930000000005
+      - imsi-208930000000006 # Subscription Permanent Identifier of the UE
+    topology: # Network topology for this group (Uplink: A->B, Downlink: B->A)
+      # default path derived from this topology
+      # node name should be consistent with smfcfg.yaml
+      - A: gNB3
+        B: I-UPF-1
+      - A: I-UPF-1
+        B: I-UPF-2
+      - A: I-UPF-2
+        B: I-UPF-4
+      - A: I-UPF-4
+        B: PSA-UPF-2  
+    specificPath:
+      - dest: 10.10.0.0/16
+        path: [I-UPF-1, I-UPF-2, I-UPF-4, PSA-UPF-2]
+      - dest: 172.17.0.0/16
+        path: [I-UPF-1, I-UPF-2, I-UPF-3, PSA-UPF-1]
+
+# pfdDataForApp: # PFDs for an Application
+#   - applicationId: app1 # Application identifier
+#     pfds: # PFDs for the Application
+#       - pfdID: pfd1 # PFD identifier
+#         flowDescriptions: # Represents a 3-tuple with protocol, server ip and server port for UL/DL application traffic
+#           - permit out ip from 172.18.0.0/16 to 10.60.0.0/16
